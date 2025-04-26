@@ -1,0 +1,25 @@
+name: Executar Bot de Seleções
+
+on:
+  schedule:
+    - cron: '0 11 * * *'  # Executa todo dia às 8h (horário de Brasília = 11 UTC)
+  workflow_dispatch:  # Permite rodar manualmente também
+
+jobs:
+  run_bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v3
+
+      - name: Instalar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Instalar dependências
+        run: |
+          pip install requests beautifulsoup4
+
+      - name: Executar bot
+        run: python bot.py
